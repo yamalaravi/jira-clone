@@ -1,11 +1,17 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DottedSaperator from "@/components/dotted-saperator";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -14,13 +20,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 const formSchema = z.object({
-  email: z.string().min(1, "Required").email(),
+  email: z.string().email(),
   password: z.string().min(1, "Required"),
 });
-
-export const SignInCard = () => {
+export const SignUpCard = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,15 +37,16 @@ export const SignInCard = () => {
   };
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-sm">
-      <CardHeader className="flex justify-center items-center text-center">
-        <CardTitle className="text-2xl">Welcome Back!</CardTitle>
+      <CardHeader className="flex justify-center flex-col items-center text-center">
+        <CardTitle className="text-2xl">Sign Up</CardTitle>
+        <CardDescription>By signing up, you are agree</CardDescription>
       </CardHeader>
       <div className="px-7 mb-2">
         <DottedSaperator />
       </div>
       <CardContent className="p-7">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               name="email"
               control={form.control}
@@ -67,7 +72,7 @@ export const SignInCard = () => {
                     <Input
                       {...field}
                       type="password"
-                      placeholder="Enter password"
+                      placeholder="Enter Password"
                     />
                   </FormControl>
                   <FormMessage />
@@ -75,7 +80,7 @@ export const SignInCard = () => {
               )}
             />
             <Button disabled={false} size="lg" className=" w-full">
-              Login
+              Sign Up
             </Button>
           </form>
         </Form>
